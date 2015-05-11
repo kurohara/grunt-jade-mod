@@ -4,7 +4,7 @@
 
 This grunt task uses 'grunt-contrib-jade' from its inside, so the detailed functionalities are depend on 'grunt-contrib-jade'.  
 
-The purpose of this task is to modify or to add some functionality to 'jade' language, by using some 'modifier' libraries.
+The purpose of this task is to modify or to add some functionality to 'jade' language, by using some 'modifier' libraries.  
 Currently, the only 'modifier' library usable with this task is 'jade-php'(not original version, sorry but use kurohara/jade-php instead).  
 
 ## Getting Started
@@ -67,6 +67,7 @@ grunt.initConfig({
 ```
 
 The 'modifiers' option is a series of modifier library names.  
+The library name is used as an argument for 'require()' function, so you might be able to use relative path to the library you want to use.  
 They are 'applied' sequentially to 'jade' engine so that they modify or add their own functionalities.  
 
 #### The options consumed by modifiers
