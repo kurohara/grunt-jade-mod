@@ -1,0 +1,1 @@
+<html><body><% call_test_func(); %></body></html>
