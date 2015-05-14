@@ -28,7 +28,8 @@
   },
   "dependencies": {
     "grunt-contrib-jade": "~0.14.1",
-    "jade": "~1.9.2"
+    "jade": "~1.9.2",
+    "yorequire": "git://github.com/kurohara/yorequire"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "^0.9.2",

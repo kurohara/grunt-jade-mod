@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "description": "jade compiler and filter for jsp",
   "main": "index.js",
-  "devDependencies": {
+  "dependencies": {
     "constantinople": "~3.0.1",
     "character-parser": "~1.2.2"
+  },
+  "devDependencies": {
   }
 }
