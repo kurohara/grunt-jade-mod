@@ -5,33 +5,60 @@
  *
  */
 
+function inherit(me, parent) {
+	for (var key in parent.prototype) {
+		me.prototype[key] = parent.prototype[key];
+	}
+    me.prototype.constructor = me;
+    me.prototype.super = parent.prototype;
+}
+
+/**
+ * make copy of self to temporary parent.
+ * then make itself subclass.
+ */
+function selfsubclass(self, tmpparent) {
+	for (var key in self.prototype) {
+		tmpparent.prototype[key] = self.prototype[key];
+	}
+    self.prototype.super = tmpparent.prototype;
+}
+
+function hasParent(jade) {
+	return jade.Compiler.super;
+}
+
+function isParentOurs(jade) {
+	return jade.Compiler.super == Compiler.prototype;
+}
+
+
+//
+// subclasses for jade classes.
+var Compiler = function Compiler() {
+};
+
+var Lexer = function Lexer() {
+};
+
+var Parser = function Parser() {
+};
+
+//
+// The Modifier Class.
 var Modifier = function Modifier() {
+	this.Compiler = Compiler;
+	this.Lexer = Lexer;
+	this.Parser = Parser;
 };
 
 Modifier.prototype.Modifier = Modifier;
 
-function _backupfuncs(src, dst) {
-	dst.Compiler.prototype.visitCode = src.Compiler.prototype.visitCode;
-	dst.Lexer.prototype.code = src.Lexer.prototype.code;
-};
-
-Modifier.prototype.init = function(jade) {
-	this.jade = jade;
-	if (! this.ex) {
-		this.ex = {
-			Compiler: function() {},
-			Lexer: function() {}
-		};
-		_backupfuncs(jade, this.ex);
-	}
-
+Modifier.prototype.override = function(jade) {
 	// for debug purpose
 	var sys = require('sys');
 
 	var isConstant = require('constantinople');
-	if (!jade) {
-		jade = require('jade');
-	}
 
 	var characterParser = require('character-parser');
 
@@ -65,7 +92,6 @@ Modifier.prototype.init = function(jade) {
 		}
 	};
 
-
 	jade.Compiler.prototype.visitCode = function (code) {
 		var val = code.val;
 
@@ -82,14 +108,23 @@ Modifier.prototype.init = function(jade) {
 	};
 };
 
-Modifier.prototype.restorefunc = function() {
-	return this.restore.bind(this);
-};
-
-Modifier.prototype.restore = function() {
-	if (this.jade && this.ex) {
-		_backupfuncs(this.ex, this.jade);
+Modifier.prototype.init = function(jade) {
+	this.jade = jade;
+	if (!hasParent(jade) || !isParentOurs(jade)) {
+		selfsubclass(jade.Compiler, Compiler);
+		selfsubclass(jade.Lexer, Lexer);
+		selfsubclass(jade.Parser, Parser);
+	
+		this.override(jade);
 	}
 };
 
+Modifier.prototype.restore = function() {
+	[ 'Compiler', 'Lexer', 'Parser' ].forEach(function(objname) {
+		for (key in this.jade[objname].prototype) {
+			this.jade[objname].prototype[key] = this.jade[objname].prototype.super[key];
+		}
+	}.bind(this));
+};
+ 
 module.exports = new Modifier();
