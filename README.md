@@ -4,8 +4,8 @@
 
 This grunt task uses 'grunt-contrib-jade' from its inside, so the detailed functionalities are depend on 'grunt-contrib-jade'.  
 
-The purpose of this task is to modify or to add some functionality to 'jade' language, by using some 'modifier' libraries.  
-Currently, the only 'modifier' library usable with this task is 'jade-php'(not original version, sorry but use kurohara/jade-php instead).  
+The purpose of this task is to modify or to add some functionality to the 'Jade template engine', by using some 'modifier' libraries.  
+Currently, the only 'modifier' library usable with this task is ['jade4php'](https://github.com/kurohara/jade4php).  
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
@@ -26,7 +26,7 @@ Additionally, you have to install the 'modifiers'.
 The only usable modifier is 'kurohara/jade-php', do the following to install that:
 
 ```shell
-npm install kurohara/jade-php --save-dev
+npm install kurohara/jade4php --save-dev
 ```
 
 ## The "jade" task
@@ -58,7 +58,7 @@ grunt.initConfig({
   jade: {
     your_target: {
       options: {
-        modifiers: [ 'jade-php' ],
+        modifiers: [ 'jade4php' ],
       }
       files: {
       }
@@ -78,7 +78,7 @@ grunt.initConfig({
   jade: {
     your_target: {
       options: {
-        modifiers: [ 'jade-php' ],
+        modifiers: [ 'jade4php' ],
         usestrip: true,
       }
     }
@@ -86,7 +86,7 @@ grunt.initConfig({
 });
 ```
 
-The 'usestrip' option is defined by 'jade-php'(not original, my modified version), see [this wiki](https://github.com/kurohara/jade-php/wiki) for more detailed information.
+The 'usestrip' option is defined by 'jade4php', see [this wiki](https://github.com/kurohara/jade-php/wiki) for more detailed information.
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
