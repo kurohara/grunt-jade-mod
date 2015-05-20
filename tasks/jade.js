@@ -30,15 +30,21 @@ module.exports = function(grunt) {
 	var my_grunt = {};
 	inherit(my_grunt, grunt);
 
+	//
+	// 1. replace original 'registerMultiTask' function.
 	my_grunt.registerMultiTask = function(name, desc, func) {
+		// 
+		// 1.1 call original 'registerMultiTask' function to register my own 'jade' task.
 		this.super.registerMultiTask(name, desc + ', with modifiers attached.', function() {
 			//
-			// 1. Replace 'require' function.
+			// 1.1.1. Replace 'require' function.
 			//
 			var yor = require('yorequire');
-			yor.setCB(function(name, o_require, data) {
+			yor.set(function(name, o_require, data) {
+				// 1.1.1.1 call original 'require' function to get original module that required.
 				var obj = o_require(name);
-	
+
+				// 1.1.1.2 apply modifier if loaded module was 'jade' module.
 				if (name === 'jade') {
 					var jade = obj;
 					modifierobjs.callRestore();
@@ -51,9 +57,9 @@ module.exports = function(grunt) {
 							// 1. override prototype functions of jade.(Lexer|Parser|Compiler).
 							// or
 							// 2. make jade use of your own Parser|Compiler by adding class to options.parser, options.compiler.
-							//         (this is not tested yet, even about its feasibility)
-							//
+							// I choose 1.
 							modobj.init(jade);
+							// save modifier object for unregister(restore) work.
 							modifierobjs.push(modobj);
 						}
 					}
@@ -64,15 +70,17 @@ module.exports = function(grunt) {
 			yor.enable(true);
 	
 			//
-			// 2. call the original 'jade' task.
+			// 1.1.2. call the original 'jade' task which had passed from 'grunt-contrib-jade' module.
 			func.bind(this)();
 	
 			//
-			// 3. do some postprocess here if needed.
+			// 1.1.3. do some postprocess here if needed.
 			//
 		});
 	};
 	
+	//
+	// 2. setup original 'jade' (grunt-contrib-jade) task with my grunt object.
 	jadetask(my_grunt);
 
 };
