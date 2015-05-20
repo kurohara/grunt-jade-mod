@@ -5,7 +5,7 @@
 This grunt task uses 'grunt-contrib-jade' from its inside, so the detailed functionalities are depend on 'grunt-contrib-jade'.  
 
 The purpose of this task is to modify or to add some functionality to the 'Jade template engine', by using some 'modifier' libraries.  
-Currently, the only 'modifier' library usable with this task is ['jade4php'](https://github.com/kurohara/jade4php).  
+Currently, the only 'modifier' library usable with this task is ['phpjade'](https://github.com/kurohara/phpjade).  
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
@@ -13,7 +13,7 @@ This plugin requires Grunt `~0.4.5`
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install kurohara/grunt-jade-mod --save-dev
+npm install grunt-jade-mod --save
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
@@ -23,10 +23,10 @@ grunt.loadNpmTasks('grunt-jade-mod');
 ```
 
 Additionally, you have to install the 'modifiers'.  
-The only usable modifier is 'kurohara/jade-php', do the following to install that:
+The only usable modifier is 'phpjade', do the following to install that:
 
 ```shell
-npm install kurohara/jade4php --save-dev
+npm install phpjade --save
 ```
 
 ## The "jade" task
@@ -58,7 +58,7 @@ grunt.initConfig({
   jade: {
     your_target: {
       options: {
-        modifiers: [ 'jade4php' ],
+        modifiers: [ 'phpjade' ],
       }
       files: {
       }
@@ -71,14 +71,14 @@ The library name is used as an argument for 'require()' function, so you might b
 They are 'applied' sequentially to 'jade' engine so that they modify or add their own functionalities.  
 
 #### The options consumed by modifiers
-Some options are modifier specific, because there are no place to control the modifiers except passing values as 'options', some modifiers may defines its own options as 'jade' options.  
+Some options are modifier specific, because there are no place to control the modifiers except passing values as 'options'. For example, 'phpjade' accept 'usestrip' option to control its behavior.  
 
 ```js
 grunt.initConfig({
   jade: {
     your_target: {
       options: {
-        modifiers: [ 'jade4php' ],
+        modifiers: [ 'phpjade' ],
         usestrip: true,
       }
     }
@@ -86,10 +86,10 @@ grunt.initConfig({
 });
 ```
 
-The 'usestrip' option is defined by 'jade4php', see [this wiki](https://github.com/kurohara/jade-php/wiki) for more detailed information.
+See [phpjade](https://github.com/kurohara/phpjade) for more detailed information.
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+1.0.0 May 20 2015
