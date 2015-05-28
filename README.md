@@ -93,3 +93,9 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 1.0.0 May 20 2015
+
+## Related projects
+* [phpjade](https://github.com/kurohara/phpjade)  
+php modifier module for Jade template engine.
+* [jade-mod-cli](https://github.com/kurohara/jade-mod-cli)  
+Jade cli with modifier support. 
